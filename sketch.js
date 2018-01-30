@@ -1,14 +1,14 @@
-var speedmax = 3;
+var speedmax = 5;
 var n = 30;
-var sizee = 20;
 
 class mol {
-    constructor(x, y, sx, sy, col){
+    constructor(x, y, sx, sy, col, sizee){
         this.x = random(width);
         this.y = random(height);
         this.sx = random(-speedmax,speedmax);
         this.sy = random(-speedmax,speedmax);
         this.col = color(random(255), random(255), random(255));
+        this.sizee = random(10,50)
     }
 }
 
@@ -28,19 +28,27 @@ function draw(){
     for (var i = 0; i < n; i++){
         mols[i].x += mols[i].sx;
         mols[i].y += mols[i].sy;
-        if (mols[i].x > width+sizee){
-            mols[i].x = 0-sizee;
+        if (mols[i].x > width+mols[i].sizee){
+            mols[i].x = 0-mols[i].sizee;
+            mols[i].sx = random(-speedmax,speedmax);
+            mols[i].sy = random(-speedmax,speedmax);
         }
-        if (mols[i].x < 0-sizee){
-            mols[i].x = width+sizee;
+        if (mols[i].x < 0-mols[i].sizee){
+            mols[i].x = width+mols[i].sizee;
+            mols[i].sx = random(-speedmax,speedmax);
+            mols[i].sy = random(-speedmax,speedmax);
         }
-        if (mols[i].y > height+sizee){
-            mols[i].y = 0-sizee;
+        if (mols[i].y > height+mols[i].sizee){
+            mols[i].y = 0-mols[i].sizee;
+            mols[i].sx = random(-speedmax,speedmax);
+            mols[i].sy = random(-speedmax,speedmax);
         }
-        if (mols[i].y < 0-sizee){
-            mols[i].y = height+sizee;
+        if (mols[i].y < 0-mols[i].sizee){
+            mols[i].y = height+mols[i].sizee;
+            mols[i].sx = random(-speedmax,speedmax);
+            mols[i].sy = random(-speedmax,speedmax);
         }
-        ellipse(mols[i].x, mols[i].y, sizee, sizee);
+        ellipse(mols[i].x, mols[i].y, mols[i].sizee, mols[i].sizee);
         fill(mols[i].col);
     }
 
