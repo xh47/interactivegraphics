@@ -1,5 +1,5 @@
-var speedmax = 5;
-var n = 30;
+var speedmax = 3;
+var n = 50;
 
 class mol {
     constructor(x, y, sx, sy, col, sizee){
@@ -7,7 +7,7 @@ class mol {
         this.y = random(height);
         this.sx = random(-speedmax,speedmax);
         this.sy = random(-speedmax,speedmax);
-        this.col = color(random(255), random(255), random(255));
+        this.col = color(random(255), random(255), random(255),random(20,100));
         this.sizee = random(10,50)
     }
 }
@@ -15,19 +15,30 @@ class mol {
 var mols = new Array(n);
 
 function setup(){
-    createCanvas(600,600)
+    createCanvas(windowWidth-20,windowHeight-100)
     for (var i = 0; i < n; i++){
         var m = new mol();
         mols[i] = m;
     }
+    frameRate(120)
 }
 
+
 function draw(){
-    background(0)
+    background(255)
 
     for (var i = 0; i < n; i++){
         mols[i].x += mols[i].sx;
         mols[i].y += mols[i].sy;
+
+        //document.getElementById("x").innerHTML = mouseX
+        //document.getElementById("y").innerHTML = mouseY
+
+        if (mouseX < width & mouseX > 0 & mouseY < height & mouseY > 0){
+            mols[i].sx -= 0.25*(mols[i].x - mouseX)/width
+            mols[i].sy -= 0.25*(mols[i].y - mouseY)/height
+        }
+        
         if (mols[i].x > width+mols[i].sizee){
             mols[i].x = 0-mols[i].sizee;
             mols[i].sx = random(-speedmax,speedmax);
@@ -50,6 +61,7 @@ function draw(){
         }
         ellipse(mols[i].x, mols[i].y, mols[i].sizee, mols[i].sizee);
         fill(mols[i].col);
+        noStroke();
     }
 
 }
